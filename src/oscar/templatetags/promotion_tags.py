@@ -1,4 +1,4 @@
-from django.template import Library, Node, RequestContext, Variable
+from django.template import Library, Node, Variable
 from django.template.loader import select_template
 
 register = Library()
@@ -14,8 +14,7 @@ class PromotionNode(Node):
                                     'promotions/default.html'])
         args = {'promotion': promotion}
         args.update(**promotion.template_context(request=context['request']))
-        ctx = RequestContext(context['request'], args)
-        return template.render(ctx)
+        return template.render(args, context['request'])
 
 
 def get_promotion_html(parser, token):
